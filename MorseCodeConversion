@@ -1,0 +1,149 @@
+/*
+    English-to-Morse & Morse-to-English Conversion
+    Emery Valencia
+    3/23/2016
+
+*/
+package stringassignment;
+import java.util.Scanner;
+public class StringAssignment {
+
+    //Array morsecode
+        public static String [] morseCode = 
+        {
+            //Alphabet A-Z
+            ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....","..", 
+            ".---","-.-",".-..","--","-.","---",".--.","--.-", ".-.","...",
+            "-","..-","...-",".--","-..-","-.--","--..",
+            //Digits 1-9
+            ".----","..---","...--","....-",".....","-....","--...","---..",
+            "----.","-----"   
+        };
+        
+        //Array alphabet
+        public static char [] alphabet = 
+        {
+            //Alphabet
+            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P',
+            'Q','R','S','T','U','V','W','X','Y','Z',
+            //Digits
+            '1','2','3','4','5','6','7','8','9','0'
+        };
+        
+    public static void main(String[] args) {
+        //Planning - 21min
+        //Design - 15min + 20min
+        //Coding - 114 min
+        Scanner userInput = new Scanner(System.in);
+        
+        boolean CONVERT = true;
+        
+               
+        //Title
+        System.out.println("Morse Code to English Conversion and Vice Versa\n");
+        System.out.println("Type '1' for English to morse code or '2' for "
+            + "morse code to English. Else type '3' to quit.");
+        
+            //Gets user's keyboard entry for String
+            int userEntry = userInput.nextInt();
+        do{
+            //Gets user's reply for if they would like to play again
+            int userAnswer;
+            //if (userEntry == 1){
+            switch(userEntry){
+                case 1:
+                    //calls the englishToMorse method
+                    englishToMorse(morseCode);
+                
+                    //Asks user if they would like to play again
+                    System.out.println("Convert again? Enter '1' for yes or "
+                            + " '2' for no");
+                    //gets user input
+                    userAnswer = userInput.nextInt();
+                    
+                    if (userAnswer == 1){
+                        CONVERT = true;
+                    } else{
+                        CONVERT = false;
+                        System.out.println("Game Over");
+                        System.exit(0);
+                    }  
+                    break;
+                    
+                case 2:
+                    //calls the morseToEnglish method
+                    morseToEnglish();
+                
+                    //Asks user if they would like to play again
+                    System.out.println("Convert again? Enter '1' for yes or '2'"
+                            + " for no");
+                    //gets user input
+                    userAnswer = userInput.nextInt();
+                    if (userAnswer == 1){
+                        CONVERT = true;
+                    } else{
+                        CONVERT = false;
+                        System.out.println("Game Over");
+                        System.exit(0);
+                    }  
+                    
+                case 3:
+                    //End conversion
+                    CONVERT = false;
+                    System.exit(0);
+            
+                default:
+                    //Prompts user to enter the correct entry
+                    System.out.println("Invalid entry. Please enter '1', '2', or"
+                        + " '3'.\n");
+                    CONVERT = true;
+                    break;
+            }
+        } while(CONVERT = true); //will continue to run until user ends program
+    }
+    
+    public static void englishToMorse(String [] morseCode){
+        
+        Scanner userInput = new Scanner(System.in);
+        
+        //prompts user for phrase
+        System.out.println("Enter the phrase you would like converted to "
+                + "morse code: ");
+        
+        String userString = userInput.nextLine();
+        userString = userString.toUpperCase(); //makes all characters uppercase
+        //char [] userStr = userString.toCharArray(); //gets string length
+        for (int index = 0; index < userString.length(); index++){
+            for (int i = 0; i < morseCode.length; i++){
+                if(userString.charAt(index) == alphabet[i])
+                    System.out.print(morseCode[i]);
+            }
+            
+            //prints out a space for each space user has entered
+            if(userString.substring(index, index+1).equals(" "))
+                    System.out.print(" ");
+        }
+        System.out.println();  
+    }
+    
+    public static void morseToEnglish(){
+        
+        Scanner userInput = new Scanner(System.in);
+        
+        System.out.println("Enter the phrase you would like converted to "
+                + "English: ");
+        
+        String userString = userInput.nextLine();
+        
+        String [] splitStr = userString.split(" ");//3 spaces between each word
+        
+        //for loop that splits the string again  
+        
+        for (int i = 0; i < splitStr.length; i++) //length of splitStr
+            for (int j = 0; j < splitStr.length; j++) //length of morseCode
+                if (splitStr[i].equals(morseCode[j])) //if the splitStr == morseCode letter
+                    System.out.print(alphabet[j] + " "); //prints out alphabet equivalent
+        
+        System.out.println(); 
+    }
+}
