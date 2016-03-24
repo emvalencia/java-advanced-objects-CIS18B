@@ -140,7 +140,7 @@ public class StringAssignment {
         //for loop that splits the string again  
         
         for (int i = 0; i < splitStr.length; i++) //length of splitStr
-            for (int j = 0; j < splitStr.length; j++) //length of morseCode
+            for (int j = 0; j < morseCode.length; j++) //length of morseCode
                 if (splitStr[i].equals(morseCode[j])) //if the splitStr == morseCode letter
                     System.out.print(alphabet[j] + " "); //prints out alphabet equivalent
         
