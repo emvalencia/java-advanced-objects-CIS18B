@@ -1,0 +1,42 @@
+/*
+    Emery Valencia
+    Tokenizing Strings, 14.8
+    3/29/16
+
+*/
+package tokenizingstrings;
+
+import java.util.Scanner;
+
+public class TokenizingStrings {
+
+    public static void main(String[] args) {
+        
+        Scanner input = new Scanner(System.in);
+        
+        //prompts user for input
+        System.out.println("String Tokenization\nEnter a telephone number in "
+                + "the form (###) ### - ####. ");
+        String userString = input.nextLine();
+        
+        //breaks string up into only numbers
+        String [] tokenString = userString.replaceAll("[()]", "").split("[ -]");
+        
+        //displays individual tokens        
+        for (String token: tokenString)
+            System.out.println(token);
+        
+        //calls toString method to concatenate the string
+        System.out.println(toString(tokenString));
+        
+    }
+    
+    //toString method for concatenating strings
+    public static String toString(String [] tokenString){
+        String concatStr = "";
+        for (int i = 0; i < tokenString.length; i++){
+            concatStr = concatStr.concat(tokenString[i]);
+        }
+        return concatStr;
+    }
+}
