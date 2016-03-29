@@ -22,11 +22,13 @@ public class TokenizingStrings {
         //breaks string up into only numbers
         String [] tokenString = userString.replaceAll("[()]", "").split("[ -]");
         
-        //displays individual tokens        
+        //displays individual tokens  
+        System.out.println("Individual tokens:");
         for (String token: tokenString)
             System.out.println(token);
         
         //calls toString method to concatenate the string
+        System.out.println("Concatenated string concatStr:");
         System.out.println(toString(tokenString));
         
     }
@@ -40,3 +42,4 @@ public class TokenizingStrings {
         return concatStr;
     }
 }
+
