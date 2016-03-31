@@ -1,0 +1,161 @@
+/*
+    Emery Valencia  
+    3/30/16
+    Least Square Lines Equation - Text File I/O
+ */
+package leastsquarelinesequation;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+        
+public class LeastSquareLinesEquation {
+    
+    //creates a Scanner object called input
+    public static Scanner input = new Scanner(System.in);
+    
+    //begin main method
+    public static void main(String[] args) throws IOException {
+        
+        //opens file, reads contents and performs calculations, and closes file
+        openFileAndRead();
+        
+    } //end main method   
+
+    //method fileCalculations
+    public static void openFileAndRead() throws IOException{
+        
+        //User prompt
+        System.out.println("Least Square Lines Equation\nPlease enter the name "
+                + "of the text file: ");
+        
+        //gets name of the file
+        Path newPath = Paths.get(input.nextLine());
+        
+        if(Files.exists(newPath)){
+            
+            //announce to user that the file has been found
+            System.out.printf("%n%s%s%s", "File ", newPath.getFileName(), " found."
+                    + " File is open.");
+            
+            //seperator
+            System.out.println("\n**********************************************");
+                    
+            //retrieves and outputs the contents
+            System.out.printf("%s%s%s", "Contents of ", newPath.getFileName(),
+                ": \n");
+            String fileContents = new String(java.nio.file.Files.readAllBytes(newPath));
+            System.out.printf("%s%n%n", fileContents);
+            
+            //seperator
+            System.out.println("Calculations");
+            System.out.println("**********************************************");
+            
+            //splits the string into pieces
+            String [] fileInfo = fileContents.replaceAll("\\s"," ").split(" ");
+            
+            //creates an array fltInfo to hold float values
+            float [] fltInfo = new float [fileInfo.length];
+            
+            //makes array to hold evena and odd index numbers (temp and resistance)
+            if (fileInfo.length % 2 == 0){
+                float [] temp = new float [fileInfo.length/2];
+                float [] resistance = new float [fileInfo.length/2];
+                
+                //keeps track of odd and even index numbers 
+                int count = 0;
+                int count2 = 0;
+                
+                for(int i = 0; i < fileInfo.length; i++){
+                    //converts string to float values
+                    fltInfo[i] = Float.parseFloat(fileInfo[i]);
+                
+                    //separates the string into even and odd index numbers
+                    if (i % 2 == 0){
+                        temp[count] = fltInfo[i];
+                        count++;
+                    }
+                    if (i % 2 == 1){
+                        resistance[count2] = fltInfo[i];
+                        count2++;
+                    }
+                }
+                
+                //ordered pairs
+                int orderedPairs = fileInfo.length/2;
+                System.out.println("Ordered pairs: " + orderedPairs);
+                
+                //prints out arrays temp and resistance and does calculations
+                float sumX = 0; //holds sum of all x values
+                float sumY = 0; //holds sum of all y values
+                float sumX2 = 0; //holds sum of all x^2 values
+                float aveX = 0; //holds the average of x values
+                float aveY = 0; //holds average of Y values;
+                float sumXY = 0; //holds sum of x*y values
+                
+                //calculations for sumX, sumY, sumX2, and sumXY
+                for (int i = 0; i < orderedPairs;i++){
+                    sumX += temp[i];
+                    sumY += resistance[i];
+                    sumX2 += (temp[i]*temp[i]);
+                    sumXY += (temp[i]*resistance[i]);  
+                }
+                
+                //calculates averages of x and y values
+                aveX = sumX/orderedPairs; //average of X values
+                aveY = sumY/orderedPairs; //average of Y values
+                
+                //temperature values output
+                System.out.println("Sum of x (temp) values: " + sumX);
+                System.out.println("Sum of x^2 (temp) values: " + sumX2);
+                System.out.println("Average of x (temp) values: " + aveX);
+                
+                //resistance values output
+                System.out.println("Sum of y (resistance) values: " + sumY);
+                System.out.println("Average of y (resistance) values): " + aveY);
+                
+                //sum x*y output
+                System.out.println("Sum of x*y: " + sumXY);
+                
+                //regression coefficients
+                //computing slope
+                // m = sum(xy) - sum(x)(average y)/sum(x^2) - sum(x)(average x)
+                float slope = (sumXY - (sumX*aveY))/(sumX2 - (sumX*aveX));
+                System.out.println("Slope: " + slope);
+                
+                //y-intercept: y = mx + b
+                float yInt = (aveY - (slope*aveX));
+                System.out.println("Y-intercept: " + yInt);
+                
+                //final output
+                System.out.printf("\nEquation of least square line: y = %.5fx + "
+                        + "%.5f%n", slope, yInt);
+                
+                
+            } else{ //each temp value must have resistance value
+                System.out.println("Each temperature value must have a "
+                        + "corresponding resistance value. Terminating...");
+                System.exit(0);
+            }         
+            
+            //Closes file once read
+            closeFile();   
+        }
+        else
+            //output if file not found
+            System.out.printf("%n%s%s%s", "File ", newPath.getFileName(), 
+                     " not found. Terminating...\n");
+    }
+    
+    //method used to close file
+    public static void closeFile(){
+        if(input != null){
+            input.close();
+            //seperator and output
+            System.out.println("\n**********************************************");
+            System.out.println("File has been closed.\n");
+        }
+    }
+}
