@@ -24,7 +24,7 @@ public class LeastSquareLinesEquation {
         
     } //end main method   
 
-    //method fileCalculations
+    //method openFileAndRead
     public static void openFileAndRead() throws IOException{
         
         //User prompt
