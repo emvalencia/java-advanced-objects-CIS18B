@@ -1,0 +1,189 @@
+/*
+    Assignment: Stacks
+    Created by: Emery Valencia
+    Description: This program obtains data from the user to create a stack and
+    prompts the user if they want to increase the stack once it is full. 
+    Afterwards, it pops all items off the stack. 
+*/
+
+
+
+package stackassignment;
+import java.util.Scanner;
+public class StackAssignment {
+
+    public static void main(String[] args) {
+        
+        //creates new Scanner object
+        Scanner input = new Scanner(System.in);
+                
+        //user intro/prompt
+        System.out.println("Template Stack Program");
+        System.out.println("---------------------------------------------------------");
+        System.out.println("Which program do you want to run?\n"
+                + "Enter 'A' for integers, 'B' or floats, or 'C' for strings.");
+        String userChoice = input.nextLine();
+        userChoice.toUpperCase(); //makes userChoice uppercase
+            
+        
+        //switch statement allows user to pick which program to run
+        switch(userChoice){
+            case "A": testInts(); break; //calls testInts method
+            case "B": testFlts(); break; //calls testsFlts method
+            case "C": testStr(); break; //calls testStr method
+        }
+        
+        //end of program output
+        System.out.println("End of program");
+        
+    }
+    
+    //method testInts- adds integers to a stack and pops them off
+    public static void testInts(){
+        //formatting output
+        System.out.println("---------------------------------------------------------");
+        
+        //creates new Scanner object
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter 3 integers to add to this stack: ");
+        int intOne = input.nextInt();
+        int intTwo = input.nextInt();
+        int intThree = input.nextInt();
+        
+        //creates a new stack of integers
+        Stack stackOfInts = new Stack (3);
+        
+        //example stack pushing 3 integers
+        System.out.println("> Pushing items onto stack...");
+        stackOfInts.push(intOne);
+        stackOfInts.push(intTwo);
+        stackOfInts.push(intThree);
+        
+        if(stackOfInts.isFull()){
+            System.out.println("Would you like to add more to the stack?\n"
+                    + "Enter 'Y' for yes or 'N' for no.");
+            String voidInput = input.nextLine(); //for output purposes only
+            String userInput = input.nextLine(); //gets user answer 
+            if(userInput.equals("Y")){
+                System.out.println("How many spots do you want to add to stack?");
+                int stackIncrease = input.nextInt();
+                stackOfInts.increaseStack(stackIncrease);
+                
+                //loop will continue to run until user has entered all added values
+                while(stackIncrease != 0){ 
+                    System.out.println("Enter integer: ");
+                    int integer = input.nextInt(); //get user input
+                    stackOfInts.push(integer); //push this value onto the stack
+                    stackIncrease--; 
+                    System.out.println("> Pushing item onto stack...");
+                }
+            }
+        }
+        System.out.println("---------------------------------------------------------");
+        
+        //pops item off the stack 
+        System.out.println("Popping items off of stack...");
+        while(!stackOfInts.isEmpty()){
+            System.out.println(stackOfInts.pop());
+        }
+    }    
+    
+    //method testFlts- adds floats to a stack and pops them off
+    public static void testFlts(){
+        //formatting output
+        System.out.println("---------------------------------------------------------");
+        
+        //creates new Scanner object
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter 3 float values to add to this stack: ");
+        float fltOne = input.nextFloat();
+        float fltTwo = input.nextFloat();
+        float fltThree = input.nextFloat();
+        
+        //creates a new stack of float numbers
+        Stack stackOfFlts = new Stack (3);
+        
+        //example stack pushing 3 float numbers
+        System.out.println("> Pushing items onto stack...");
+        stackOfFlts.push(fltOne);
+        stackOfFlts.push(fltTwo);
+        stackOfFlts.push(fltThree);
+        
+        if(stackOfFlts.isFull()){
+            System.out.println("Would you like to add more to the stack?\n"
+                    + "Enter 'Y' for yes or 'N' for no.");
+            String voidInput = input.nextLine(); //for output purposes only
+            String userInput = input.nextLine(); //gets user answer 
+            if(userInput.equals("Y")){
+                System.out.println("How many spots do you want to add to stack?");
+                int stackIncrease = input.nextInt();
+                stackOfFlts.increaseStack(stackIncrease);
+                
+                //loop will continue to run until user has entered all added values
+                while(stackIncrease != 0){ 
+                    System.out.println("Enter float value: ");
+                    float floatValue= input.nextFloat(); //get user input
+                    stackOfFlts.push(floatValue); //push this value onto the stack
+                    stackIncrease--; 
+                    System.out.println("> Pushing item onto stack...");
+                }
+            } 
+        }
+        System.out.println("---------------------------------------------------------");
+        
+        //pops item off the stack 
+        System.out.println("Popping items off of stack...");
+        while(!stackOfFlts.isEmpty()){
+            System.out.println(stackOfFlts.pop());
+        }
+    }
+    
+    //method testStr- adds strings to a stack and pops them off
+    public static void testStr(){
+        //formatting output
+        System.out.println("---------------------------------------------------------");
+        
+        //creates new Scanner object
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter 3 strings to add to this stack: ");
+        String StrOne = input.nextLine();
+        String StrTwo = input.nextLine();
+        String StrThree = input.nextLine();
+        
+        //creates a new stack of integers
+        Stack stackOfStr = new Stack (3);
+        
+        //example stack pushing 3 integers
+        System.out.println("> Pushing items onto stack...");
+        stackOfStr.push(StrOne);
+        stackOfStr.push(StrTwo);
+        stackOfStr.push(StrThree);
+        
+        if(stackOfStr.isFull()){
+            System.out.println("Would you like to add more to the stack?\n"
+                    + "Enter 'Y' for yes or 'N' for no.");
+            String userInput = input.nextLine(); //gets user answer 
+            if(userInput.equals("Y")){
+                System.out.println("How many spots do you want to add to stack?");
+                int stackIncrease = input.nextInt();
+                stackOfStr.increaseStack(stackIncrease); //increases stack size
+                
+                //loop will continue to run until user has entered all added values
+                while(stackIncrease != 0){ 
+                    System.out.println("Enter string: ");
+                    String string = input.next(); //get user input
+                    stackOfStr.push(string); //push this value onto the stack
+                    stackIncrease--; 
+                    System.out.println("> Pushing item onto stack...");
+                }
+            }
+        }
+        System.out.println("---------------------------------------------------------");
+        
+        //pops item off the stack 
+        System.out.println("Popping items off of stack...");
+        while(!stackOfStr.isEmpty()){
+            System.out.println(stackOfStr.pop());
+        }
+    }
+}
