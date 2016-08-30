@@ -6,8 +6,9 @@
     Afterwards, it pops all items off the stack. 
 */
 
-
-
+//************************************************************************************************
+//MAIN METHOD
+//************************************************************************************************
 package stackassignment;
 import java.util.Scanner;
 public class StackAssignment {
@@ -186,4 +187,80 @@ public class StackAssignment {
             System.out.println(stackOfStr.pop());
         }
     }
+}
+
+
+
+//************************************************************************************************
+//STACK CLASS
+//************************************************************************************************
+package stackassignment;
+
+public class Stack <T>{
+    private T[] stack; //array of T items in stack
+    private T[] stack2; //array of T items in stack2
+    private int size; //max size of stack
+    private int numberOfEntries; //holds number of items in stack
+    private boolean increasedStack; //keeps track if stack was increased or not
+    
+    public Stack()
+    {
+        stack = (T[]) new Object[20]; //default stack size is 20 items
+        this.numberOfEntries = 0; //zero items entered initially
+        increasedStack = false;
+    }
+    
+    public Stack(int InitialStackSize)
+    {
+        this.size = InitialStackSize; //stack size maximum is this.size
+        stack = (T[]) new Object[size]; //item array's max size is user defined
+        this.numberOfEntries = 0; //zero items currently in the stack
+        increasedStack = false;
+    }
+    
+    public void sizes(){
+        System.out.println("Size of stack: " + this.size);
+        System.out.println("Number of entries: " + numberOfEntries);
+        System.out.println("Size of items array: " + stack.length);
+    }
+    
+    public boolean isEmpty()
+    {
+        if (numberOfEntries == 0) return true;
+        else return false;
+    }
+    
+    public boolean isFull()
+    {
+        if (numberOfEntries == size) return true;
+        else return false;
+    }
+    
+    public void push(T data)
+    {
+        if(numberOfEntries == size) System.out.println("Stack full, cannot push");
+        else{
+            if(increasedStack == false) this.stack[numberOfEntries++] = data;
+            else{
+                this.stack2[numberOfEntries++] = data;
+            }
+        } 
+    }
+    
+    public T pop (){
+        if (!isEmpty()){
+            if(increasedStack == false) return this.stack[--numberOfEntries];
+            else return this.stack2[--numberOfEntries];
+        }
+        else return null;
+    }
+    
+    public void increaseStack(int stackIncrease){
+        size += stackIncrease; //increases stack size by stackIncrease amount
+        stack2 = (T[]) new Object[size]; //item array's max size is user defined
+        for(int i = 0; i < size-stackIncrease; i++) //copies old stack into new stack
+            stack2[i] = stack[i];
+        increasedStack = true;
+    }
+    
 }
