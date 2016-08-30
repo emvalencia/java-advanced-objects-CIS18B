@@ -1,0 +1,73 @@
+/*
+    Assignment: Queue of Primes
+    Created by: Emery Valencia
+    Due date: 4/8/16
+    Description: Takes in a number given by the user and creates a queue
+    of prime numbers. 
+*/
+package queueassignment;
+import java.util.Scanner;
+public class QueueAssignment {
+
+    public static void main(String[] args) {
+  
+        //scanner object
+        Scanner userInput = new Scanner(System.in);
+    
+        //user prompt
+        System.out.print("Enter an integer N: ");
+        int input = userInput.nextInt();
+    
+        //creates queueOfIntegers and queueOfPrimes
+        Queue<Integer> queueOfIntegers = new Queue <Integer>(); 
+        Queue<Integer> queueOfPrimes = new Queue <Integer>();
+    
+        //enqueues and displays values
+        System.out.print("Contents of queueOfIntegers: ");
+        for (int i = 2; i <= input; i++){
+            queueOfIntegers.enqueue(i); //enqueue queueOfIntegers with integers
+        }
+        queueOfIntegers.display();
+        System.out.println();   
+        
+        do{
+            //variables
+            int last = queueOfIntegers.back();
+            int prime = queueOfIntegers.dequeue(); //prime is the dequeued value
+            queueOfPrimes.enqueue(prime); //prime is added to queueOfPrimes
+            System.out.println("\nDequeueing a prime number: " + prime);
+            
+            
+            //iterates until the queueOfIntegers is empty
+            while(!queueOfIntegers.isEmpty()){
+                int front = queueOfIntegers.dequeue(); //gets the front dequeued value
+                if(front % prime != 0){ //if the front is not divisible by the prime
+                    if (queueOfIntegers.size() != 0){
+                        System.out.print(""); //wont add the last prime without this
+                        queueOfIntegers.enqueue(front); //add to queueOfIntegers
+                    }
+                }
+                if (front == last) 
+                    break;
+            }
+                
+            //prints out queueOfPrimes
+            System.out.print("Content of queueOfPrimes: ");
+            queueOfPrimes.display();
+            
+            //prints out queueOfIntegers
+            System.out.print("\nContent of queueOfIntegers: ");
+            if(!queueOfIntegers.isEmpty())
+                queueOfIntegers.display();
+            else
+                System.out.print("Empty");
+            System.out.println();
+            
+        } while(!queueOfIntegers.isEmpty()); //continues until condition is met
+        
+        System.out.print("\nContent of queueOfPrimes: ");
+        queueOfPrimes.display();
+        System.out.println();
+    
+    }
+}
