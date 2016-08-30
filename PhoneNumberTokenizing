@@ -1,7 +1,9 @@
 /*
-    Emery Valencia
-    Tokenizing Strings, 14.8
-    3/29/16
+    Assignment: Tokenizing Strings
+    Created by: Emery Valencia
+    Due date: 3/29/16
+    Description: This program takes in a phone number, separates each section into
+    strings, and displays the individual tokens made and the concatenated string.
 */
 package tokenizingstrings;
 
